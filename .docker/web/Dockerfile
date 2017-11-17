@@ -8,10 +8,12 @@ RUN sudo selenium-standalone install
 # Additional Packages.
 RUN sudo apt-get update && sudo apt-get install -y ruby libpng-dev libmcrypt-dev mysql-client x11vnc
 
+# PHP Extensions
+RUN sudo apt-get install php5-gd php5-json php5-mysql php5-mcrypt php-pclzip 
+
 # Install PHP Extensions
 #Available Extensions:
 #bcmath bz2 calendar ctype curl dba dom enchant exif fileinfo filter ftp gd gettext gmp hash iconv imap interbase intl json ldap mbstring mcrypt mssql mysql mysqli oci8 odbc opcache pcntl pdo pdo_dblib pdo_firebird pdo_mysql pdo_oci pdo_odbc pdo_pgsql pdo_sqlite pgsql phar posix pspell readline recode reflection session shmop simplexml snmp soap sockets spl standard sybase_ct sysvmsg sysvsem sysvshm tidy tokenizer wddx xml xmlreader xmlrpc xmlwriter xsl zip
-RUN sudo docker-php-ext-install gd json mcrypt mysql mysqli opcache pdo pdo_mysql zip
 
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
