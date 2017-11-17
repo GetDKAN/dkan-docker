@@ -27,5 +27,5 @@ RUN sudo chmod 644 /etc/mysql/my.cnf
 RUN sudo chmod 777 /usr/local/etc/php/conf.d
 RUN sudo echo "memory_limit = 256M" > /usr/local/etc/php/conf.d/memory.ini
 RUN sudo echo "always_populate_raw_post_data = -1" > /usr/local/etc/php/conf.d/deprecated.ini
-RUN sudo chmod 644 /usr/local/etc/php/conf.d
+RUN sudo chmod 755 /usr/local/etc/php/conf.d
 
