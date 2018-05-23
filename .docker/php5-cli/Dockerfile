@@ -37,12 +37,12 @@ RUN apt-get install -y \
   php5.6-gd \
   php-pear \
   php5.6-dev \
+  php5.6-xdebug \
   php5.6-cli \
   php5.6-mcrypt
 
 RUN php -v 
 RUN pecl install xhprof-0.9.4
-
 
 # Install Nodejs and Ruby
 RUN curl -sL https://deb.nodesource.com/setup_8.x | bash
@@ -93,12 +93,15 @@ RUN phpcs --config-set installed_paths /root/.composer/vendor/drupal/coder/coder
 RUN phpcs --config-set default_standard Drupal
 
 # Add local settings
-COPY php-cli.ini /etc/php5/cli/conf.d/z_php.ini
+COPY php-cli.ini /etc/php/5.6/cli/conf.d/z_php.ini
+# Add xdebug settins. These are moved when `ahoy docker xdebug start` is run.
 COPY xdebug-linux.ini /etc/php5/xdebug-linux.ini
 COPY xdebug-macos.ini /etc/php5/xdebug-macos.ini
 
-# Turn off xdebug by default
-#TODO
+# Add git completion for the cli
+RUN curl -o ~/.git-completion.bash https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash
+RUN curl -o ~/.git-prompt.sh https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh
+COPY bash.rc /root/.bash.rc
 
 WORKDIR /var/www
 
