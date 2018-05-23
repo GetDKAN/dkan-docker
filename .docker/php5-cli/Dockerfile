@@ -31,6 +31,7 @@ RUN apt-get install -y \
   php5.6-mbstring \
   php5.6-mcrypt \
   mysql-client\
+  php5.6-curl \
   php5.6-mysql \
   php5.6-xml \
   php5.6-gd \
@@ -112,6 +113,9 @@ COPY .ssh /root/.ssh
 
 # Add registry_rebuild
 RUN drush dl registry_rebuild-7.x
+
+RUN wget -q https://s3-us-west-1.amazonaws.com/nucivic-binaries/ahoy/1.1.0/ahoy-linux-amd64 -O /usr/local/bin/ahoy && \
+    chmod +x /usr/local/bin/ahoy
 
 # Startup script
 COPY ./startup.sh /opt/startup.sh
