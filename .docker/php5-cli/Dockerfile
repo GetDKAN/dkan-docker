@@ -36,6 +36,7 @@ RUN apt-get install -y \
   php5.6-xml \
   php5.6-gd \
   php-pear \
+  php-memcache \
   php5.6-dev \
   php5.6-xdebug \
   php5.6-cli \
