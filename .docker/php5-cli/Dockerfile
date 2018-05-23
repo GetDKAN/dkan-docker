@@ -30,6 +30,7 @@ RUN apt-get install -y \
   php5.6 \
   php5.6-mbstring \
   php5.6-mcrypt \
+  mysql-client\
   php5.6-mysql \
   php5.6-xml \
   php5.6-gd \
