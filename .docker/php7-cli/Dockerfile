@@ -23,24 +23,23 @@ ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
 
-RUN add-apt-repository ppa:ondrej/php
 RUN apt-get update
 # PHP 5
 RUN apt-get install -y \
-  php5.6 \
-  php5.6-mbstring \
-  php5.6-mcrypt \
+  php \
+  php-mbstring \
+  php-mcrypt \
   mysql-client\
-  php5.6-curl \
-  php5.6-mysql \
-  php5.6-xml \
-  php5.6-gd \
+  php-curl \
+  php-mysql \
+  php-xml \
+  php-gd \
   php-pear \
   php-memcache \
-  php5.6-dev \
-  php5.6-xdebug \
-  php5.6-cli \
-  php5.6-mcrypt
+  php-dev \
+  php-xdebug \
+  php-cli \
+  php-mcrypt
 
 RUN php -v 
 RUN pecl install xhprof-0.9.4
@@ -94,7 +93,7 @@ RUN phpcs --config-set installed_paths /root/.composer/vendor/drupal/coder/coder
 RUN phpcs --config-set default_standard Drupal
 
 # Add local settings
-COPY php-cli.ini /etc/php/5.6/cli/conf.d/z_php.ini
+COPY php-cli.ini /etc/php/7.0/cli/conf.d/z_php.ini
 # Add xdebug settins. These are moved when `ahoy docker xdebug start` is run.
 COPY xdebug-linux.ini /etc/php5/xdebug-linux.ini
 COPY xdebug-macos.ini /etc/php5/xdebug-macos.ini
