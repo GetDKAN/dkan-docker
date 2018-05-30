@@ -6,16 +6,16 @@ RUN apt-get update
 
 # The basics
 RUN apt-get install -y \
-	supervisor \
-	curl \
-	wget \
-	unzip \
+  supervisor \
+  curl \
+  wget \
+  unzip \
   locales \
-	git \
-	pv \
-	apt-transport-https \
-	vim \
-	patch \
+  git \
+  pv \
+  apt-transport-https \
+  vim \
+  patch \
   zip 
 
 RUN locale-gen en_US.UTF-8
