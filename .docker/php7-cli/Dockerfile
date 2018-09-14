@@ -41,6 +41,9 @@ RUN apt-get install -y \
   php-cli \
   php-mcrypt
 
+# Install AWS CLI
+RUN apt-get install -y awscli
+
 RUN php -v 
 RUN pecl install xhprof-0.9.4
 
