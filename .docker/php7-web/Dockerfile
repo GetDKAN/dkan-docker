@@ -26,5 +26,7 @@ RUN update-alternatives --set php-config /usr/bin/php-config7.1
 COPY 000-default.conf /etc/apache2/sites-available/000-default.conf
 COPY default-ssl.conf /etc/apache2/sites-available/default-ssl.conf
 
+EXPOSE 80 443
+
 CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
 
