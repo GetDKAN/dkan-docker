@@ -29,5 +29,9 @@ COPY default-ssl.conf /etc/apache2/sites-available/default-ssl.conf
 RUN a2ensite default-ssl
 EXPOSE 80 443
 
+# Generate SSL certificate and key
+RUN openssl req -batch -nodes -newkey rsa:2048 -keyout /etc/ssl/private/server.key -out /tmp/server.csr && \
+    openssl x509 -req -days 365 -in /tmp/server.csr -signkey /etc/ssl/private/server.key -out /etc/ssl/certs/server.crt;rm /tmp/server.csr
+    
 CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
 
