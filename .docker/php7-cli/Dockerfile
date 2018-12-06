@@ -18,6 +18,10 @@ RUN apt-get install -y \
   patch \
   zip 
 
+# Cypress.io requirements
+RUN apt update
+RUN apt install xvfb libgtk2.0-0 libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 -y
+
 RUN locale-gen en_US.UTF-8
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
