@@ -134,7 +134,7 @@ RUN chmod +x /opt/startup.sh
 # Starter script
 ENTRYPOINT ["/opt/startup.sh"]
 
-ENV PHP_INI_SCAN_DIR="/etc/php/7.0/cli/conf.d:/var/www/.docker/etc/php"
+ENV PHP_INI_SCAN_DIR="/etc/php/7.0/cli/conf.d:/var/www/src/docker/etc/php"
 
 # By default, launch supervisord to keep the container running.
 CMD /usr/bin/supervisord -n
