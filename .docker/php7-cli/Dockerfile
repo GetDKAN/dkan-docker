@@ -45,6 +45,9 @@ RUN apt-get install -y \
   php-cli \
   php-mcrypt
 
+# Disable loading of xdebug.so
+RUN rm -f /etc/php/7.0/cli/conf.d/20-xdebug.ini
+
 # Install AWS CLI
 RUN apt-get install -y awscli
 
@@ -101,9 +104,6 @@ RUN phpcs --config-set default_standard Drupal
 
 # Add local settings
 COPY php-cli.ini /etc/php/7.0/cli/conf.d/z_php.ini
-# Add xdebug settins. These are moved when `ahoy docker xdebug start` is run.
-COPY xdebug-linux.ini /etc/php5/xdebug-linux.ini
-COPY xdebug-macos.ini /etc/php5/xdebug-macos.ini
 
 # Add git completion for the cli
 RUN curl -o ~/.git-completion.bash https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash
@@ -133,6 +133,8 @@ RUN chmod +x /opt/startup.sh
 
 # Starter script
 ENTRYPOINT ["/opt/startup.sh"]
+
+ENV PHP_INI_SCAN_DIR="/etc/php/7.0/cli/conf.d:/var/www/src/docker/etc/php"
 
 # By default, launch supervisord to keep the container running.
 CMD /usr/bin/supervisord -n
