@@ -1,4 +1,4 @@
-FROM ubuntu:16.04
+FROM ubuntu:18.04
 
 RUN apt-get update
 RUN apt-get install software-properties-common -y
@@ -28,31 +28,26 @@ ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
 
 RUN apt-get update
-# PHP 5
-RUN apt-get install -y \
-  php \
-  php-mbstring \
-  php-mcrypt \
-  mysql-client\
-  php-curl \
-  php-mysql \
-  php-xml \
-  php-gd \
-  php-pear \
-  php-memcache \
-  php-dev \
-  php-xdebug \
-  php-cli \
-  php-mcrypt
+
+# PHP
+RUN apt update && apt-get update && apt install apache2 -y && \
+    apt install mysql-server -y && \
+    apt-get install -y software-properties-common && \
+    add-apt-repository ppa:ondrej/php && \
+    DEBIAN_FRONTEND=noninteractive apt install php7.1 -y && \
+    DEBIAN_FRONTEND=noninteractive apt install php7.1-dev php7.1-cli php7.1-common php7.1-curl php7.1-gd php7.1-json php7.1-opcache php7.1-mysql php7.1-mbstring php7.1-mcrypt php7.1-zip php7.1-xml -y
+
+RUN update-alternatives --set php /usr/bin/php7.1 && \
+    update-alternatives --set phar /usr/bin/phar7.1 && \
+    update-alternatives --set phar.phar /usr/bin/phar.phar7.1 && \
+    update-alternatives --set phpize /usr/bin/phpize7.1 && \
+	update-alternatives --set php-config /usr/bin/php-config7.1
 
 # Disable loading of xdebug.so
-RUN rm -f /etc/php/7.0/cli/conf.d/20-xdebug.ini
+RUN rm -f /etc/php/7.1/cli/conf.d/20-xdebug.ini
 
 # Install AWS CLI
 RUN apt-get install -y awscli
-
-RUN php -v 
-RUN pecl install xhprof-0.9.4
 
 # Install Nodejs and Ruby
 RUN curl -sL https://deb.nodesource.com/setup_8.x | bash
@@ -103,7 +98,7 @@ RUN phpcs --config-set installed_paths /root/.composer/vendor/drupal/coder/coder
 RUN phpcs --config-set default_standard Drupal
 
 # Add local settings
-COPY php-cli.ini /etc/php/7.0/cli/conf.d/z_php.ini
+COPY php-cli.ini /etc/php/7.1/cli/conf.d/z_php.ini
 
 # Add git completion for the cli
 RUN curl -o ~/.git-completion.bash https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash
@@ -134,7 +129,7 @@ RUN chmod +x /opt/startup.sh
 # Starter script
 ENTRYPOINT ["/opt/startup.sh"]
 
-ENV PHP_INI_SCAN_DIR="/etc/php/7.0/cli/conf.d:/var/www/src/docker/etc/php"
+ENV PHP_INI_SCAN_DIR="/etc/php/7.1/cli/conf.d:/var/www/src/docker/etc/php"
 
 # By default, launch supervisord to keep the container running.
 CMD /usr/bin/supervisord -n
