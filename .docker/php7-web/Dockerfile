@@ -30,4 +30,6 @@ EXPOSE 80 443
 
 ENV PHP_INI_SCAN_DIR="/etc/php/7.1/apache2/conf.d:/var/www/src/docker/etc/php"
 
-CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
+COPY ./docker-entrypoint.sh /
+ENTRYPOINT ["/docker-entrypoint.sh"]
+
