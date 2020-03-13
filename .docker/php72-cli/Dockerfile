@@ -50,7 +50,7 @@ RUN rm -f /etc/php/7.2/cli/conf.d/20-xdebug.ini
 RUN apt-get install -y awscli
 
 # Install Nodejs and Ruby
-RUN curl -sL https://deb.nodesource.com/setup_8.x | bash
+RUN curl -sL https://deb.nodesource.com/setup_13.x | bash
 RUN apt-get install -y nodejs
 
 # Install Ruby
