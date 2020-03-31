@@ -49,8 +49,11 @@ RUN rm -f /etc/php/7.2/cli/conf.d/20-xdebug.ini
 # Install AWS CLI
 RUN apt-get install -y awscli
 
+# Install ClamAV
+RUN apt-get install -y clamav
+
 # Install Nodejs and Ruby
-RUN curl -sL https://deb.nodesource.com/setup_8.x | bash
+RUN curl -sL https://deb.nodesource.com/setup_13.x | bash
 RUN apt-get install -y nodejs
 
 # Install Ruby
